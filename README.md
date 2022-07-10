@@ -18,3 +18,16 @@ I used GPIO6 for SCL and GPIO7 for SDA, but these can be changed in the [platfor
 
 
 The [program](src/main.cpp) itself is fairly simple, it's just a simple counter that starts at 0 and probably continuous untill it overflows.
+
+## WSL
+To connect to my devices from WSL I used this guide [Connect USB devices](https://docs.microsoft.com/en-us/windows/wsl/connect-usb).
+
+Since I'm on OpenSuse in WSL, I had to use these commands to install everything I needed
+```
+sudo zypper addrepo https://download.opensuse.org/repositories/network/15.4/network.repo
+sudo zypper refresh
+sudo zypper install usbip
+sudo zypper install usbutils
+```
+
+For some reason, the USB device is created with `root:root` as owner and `0600` as permissions, so I `chown` it to my user everytime I attach my adapter to WSL (`usbipd wsl attach --busid 16-3`)
